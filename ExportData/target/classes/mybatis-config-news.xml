@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver" />
+                <property name="url" value="jdbc:mysql://10.43.4.148:3306/ns_qa_v1?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true" />
+                <property name="username" value="qa_inews" />
+                <property name="password" value="qaInews123" />
+            </dataSource>
+        </environment>
+        
+        
+    </environments>
+    <mappers>
+    <!-- /ExportData/src/test/java/dao/UserDaoMapper.xml 
+    /ExportData/src/main/java/news_webpage/NewsWebpageDaoMapper.xml-->
+        <mapper resource="news_webpage/NewsWebpageDaoMapper.xml"/>
+        <mapper resource="news_content_new/NewsContentNewDaoMapper.xml"/>
+        <mapper resource="news_hot/NewsHotDaoMapper.xml"/>
+        <mapper resource="news_comment/NewsCommentDaoMapper.xml"/>
+    </mappers>
+</configuration>

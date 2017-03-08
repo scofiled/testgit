@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="ns_webpage.NsWebpageDao">
+    
+    <resultMap type="ns_webpage.NsWebpageEntity" id="ns_webpage">
+		<id property="webpageurl" column="webpage_url" />
+		<result property="title" column="title" />
+		<result property="shorttitle" column="short_title" />
+		<result property="keywords" column="keywords" />
+		<result property="summary" column="summary" />
+		<result property="originalcontent" column="original_content" />
+		<result property="cleaningcontent" column="cleaning_content" />
+		<result property="tagcleaningcontent" column="tag_cleaning_content" />
+		<result property="sourcereport" column="source_report" />
+		<result property="sourcecrawl" column="source_crawl" />
+		<result property="region" column="region" />
+		<result property="classification" column="classification" />
+		<result property="filetype" column="file_type" />
+		<result property="filesize" column="file_size" />
+		<result property="address" column="address" />
+		<result property="browsecount" column="browse_count" />
+		<result property="downloadcount" column="download_count" />
+		<result property="label" column="label" />
+		<result property="author" column="author" />
+		<result property="crawldatetime" column="crawl_datetime" />
+		<result property="releasedatetime" column="release_datetime" />
+		<result property="relevantnewsid" column="relevant_news_id" />
+		<result property="downwyid" column="down_wy_id" />
+		<result property="picpath" column="pic_path" />
+	</resultMap>
+	
+	
+    
+    <select id="selectAll" parameterType="map" resultMap="ns_webpage">
+        select * from ns_webpage limit #{begin},#{pagesize}
+    </select>
+    
+ 
+    
+    <select id="findByWebpageUrl" parameterType="String" resultMap="ns_webpage">
+        select * from ns_webpage where webpage_url=#{webpageurl}
+    </select>
+    
+     <select id="countAll" resultType="int">
+        select count(*) c from ns_webpage;
+    </select>
+    
+    <select id="getMintime"  resultMap="ns_webpage">
+        select Min(crawl_datetime) crawl_datetime from ns_webpage
+    </select>
+    
+    <select id="getMaxtime"  resultMap="ns_webpage">
+        select Max(crawl_datetime) crawl_datetime from ns_webpage
+    </select>
+    
+  	<select id="selectBycrawldatetime" parameterType="date"   resultMap="ns_webpage">
+        select * from ns_webpage where crawl_datetime &gt; #{starttime,jdbcType=TIMESTAMP} and crawl_datetime &lt;= #{endtime,jdbcType=TIMESTAMP}
+    </select> 
+    
+</mapper>

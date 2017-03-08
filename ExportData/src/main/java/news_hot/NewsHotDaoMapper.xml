@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- news_webpage.NewsWebpageDao -->
+<mapper namespace="news_hot.NewsHotDao">
+
+
+	<insert id="insert" parameterType="news_hot.NewsHotEntity"
+		useGeneratedKeys="true" keyProperty="innerid">
+
+		insert into news_hot
+		(title,ranking_num,comment_num,participate_num,clicking_num,ranking_type,ranking_cycle,source_web,
+		classification,cus_classification,crawl_datetime,release_datetime,release_datetime_str,
+		update_datetime,webpage_code,webpage_url,is_deleted,reposts_count)
+		values
+		(#{title},#{rankingnum},#{commentnum},#{participatenum},#{clickingnum},#{rankingtype},#{rankingcycle},#{sourceweb},
+		#{classification},#{cusclassification},#{crawldatetime},#{releasedatetime},#{releasedatetimestr}
+		,#{updatedatetime},#{webpagecode},#{webpageurl},#{isdeleted},#{repostscount})
+
+	</insert>
+	
+	
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		<selectKey resultType="java.lang.Integer" keyProperty="innerid"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into news_hot
+		(title,ranking_num,comment_num,participate_num,clicking_num,ranking_type,ranking_cycle,source_web,
+		classification,cus_classification,crawl_datetime,release_datetime,release_datetime_str,
+		update_datetime,webpage_code,webpage_url,is_deleted,reposts_count)
+		values
+		<foreach collection="list" item="reddemCode" index="index"
+			separator=",">
+		(#{reddemCode.title},#{reddemCode.rankingnum},#{reddemCode.commentnum},#{reddemCode.participatenum},#{reddemCode.clickingnum},#{reddemCode.rankingtype},#{reddemCode.rankingcycle},#{reddemCode.sourceweb},
+		#{reddemCode.classification},#{reddemCode.cusclassification},#{reddemCode.crawldatetime},#{reddemCode.releasedatetime},#{reddemCode.releasedatetimestr}
+		,#{reddemCode.updatedatetime},#{reddemCode.webpagecode},#{reddemCode.webpageurl},#{reddemCode.isdeleted},#{reddemCode.repostscount})
+		</foreach>
+	</insert>
+
+</mapper>

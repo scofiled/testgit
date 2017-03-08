@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- news_webpage.NewsWebpageDao -->
+<mapper namespace="news_comment.NewsCommentDao">
+
+	<insert id="insert" parameterType="news_comment.NewsCommentEntity"
+		useGeneratedKeys="true" keyProperty="innerid">
+
+		insert into news_comment
+		(commentid,crawl_datetime,release_datetime_str,release_datetime,update_datetime,build_level
+		,vote,against,content,postid,source_type,user_id,user_location,user_name,user_id_new,product_key
+		,sitename,ip,current_url,webpage_code,page_no,parent,thread,is_useless,is_deleted,sentiment
+		)
+		values
+		(#{commentid},#{crawldatetime},#{releasedatetimestr},#{releasedatetime},#{updatedatetime},#{buildlevel}
+		,#{vote},#{against},#{content},#{postid},#{sourcetype},#{userid},#{userlocation},#{username},#{useridnew},#{productkey}
+		,#{sitename},#{ip},#{currenturl},#{webpagecode},#{pageno},#{parent},#{thread},#{isuseless},#{isdeleted},#{sentiment})
+
+	</insert>
+
+
+
+	<insert id="insertBatch" parameterType="java.util.List">
+		<selectKey resultType="java.lang.Integer" keyProperty="innerid"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into news_comment
+		(commentid,crawl_datetime,release_datetime_str,release_datetime,update_datetime,build_level
+		,vote,against,content,postid,source_type,user_id,user_location,user_name,user_id_new,product_key
+		,sitename,ip,current_url,webpage_code,page_no,parent,thread,is_useless,is_deleted,sentiment
+		)
+		values
+		<foreach collection="list" item="reddemCode" index="index"
+			separator=",">
+			 (
+			 #{reddemCode.commentid}, #{reddemCode.crawldatetime}, #{reddemCode.releasedatetimestr}, #{reddemCode.releasedatetime}, #{reddemCode.updatedatetime}, #{reddemCode.buildlevel},
+			 #{reddemCode.vote}, #{reddemCode.against}, #{reddemCode.content}, #{reddemCode.postid}, #{reddemCode.sourcetype}, #{reddemCode.userid}, #{reddemCode.userlocation}, #{reddemCode.username}, 
+			 #{reddemCode.useridnew}, #{reddemCode.productkey}, #{reddemCode.sitename}, #{reddemCode.ip}, #{reddemCode.currenturl}, #{reddemCode.webpagecode}, #{reddemCode.pageno}, #{reddemCode.parent}, 
+			 #{reddemCode.thread}, #{reddemCode.isuseless}, #{reddemCode.isdeleted}, #{reddemCode.sentiment}
+			 )
+		</foreach>
+	</insert>
+
+
+</mapper>

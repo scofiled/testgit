@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- news_webpage.NewsWebpageDao -->
+<mapper namespace="news_webpage.NewsWebpageDao">
+
+
+	<resultMap type="news_webpage.NewsWebpageEntity" id="news_webpage">
+		<id property="innerid" column="innerid" />
+		<result property="webpagecode" column="webpage_code" />
+		<result property="webpageurl" column="webpage_url" />
+		<result property="title" column="title" />
+		<result property="shorttitle" column="short_title" />
+		<result property="keywords" column="keywords" />
+		<result property="websummary" column="web_summary" />
+		<result property="sourcereport" column="source_report" />
+		<result property="sourcecrawl" column="source_crawl" />
+		<result property="region" column="region" />
+		<result property="classification" column="classification" />
+		<result property="cusclassification" column="cus_classification" />
+		<result property="repostscount" column="reposts_count" />
+		<result property="commentscount" column="comments_count" />
+		<result property="participatenum" column="participate_num" />
+		<result property="vote" column="vote" />
+		<result property="against" column="against" />
+		<result property="browsecount" column="browse_count" />
+		<result property="status" column="status" />
+		<result property="author" column="author" />
+		<result property="crawldatetime" column="crawl_datetime" />
+		<result property="releasedatetimestr" column="release_datetime_str" />
+		<result property="releasedatetime" column="release_datetime" />
+		<result property="updatedatetime" column="update_datetime" />
+		<result property="iscorenews" column="is_core_news" />
+		<result property="corenewscode" column="core_news_code" />
+		<result property="similarnum" column="similar_num" />
+		<result property="relevantnum" column="relevant_num" />
+		<result property="istopnews" column="is_top_news" />
+		<result property="picpath" column="pic_path" />
+		<result property="isdeleted" column="is_deleted" />
+		<result property="isoriginal" column="is_original" />
+		<result property="isclue" column="is_clue" />
+		<result property="weiboid" column="weibo_id" />
+		<result property="weibopid" column="weibo_pid" />
+		<result property="weiborootid" column="weibo_root_id" />
+	</resultMap>
+
+
+
+	<insert id="insert" parameterType="news_webpage.NewsWebpageEntity"
+		useGeneratedKeys="true" keyProperty="innerid">
+
+		insert into news_webpage
+		(webpage_code,webpage_url,title,short_title,keywords,web_summary,source_report,
+		source_crawl,region,classification,cus_classification,reposts_count,comments_count,
+		participate_num,vote,against,browse_count,status,author,crawl_datetime,release_datetime_str,
+		release_datetime,update_datetime,is_core_news,core_news_code,similar_num,relevant_num,
+		is_top_news,pic_path,is_deleted,is_original,is_clue,weibo_id,weibo_pid,weibo_root_id)
+		values
+		(#{webpagecode},#{webpageurl},#{title},#{shorttitle},#{keywords},#{websummary},#{sourcereport},#{sourcecrawl},#{region},
+		#{classification},#{cusclassification},#{repostscount},#{commentscount},#{participatenum},#{vote},#{against},#{browsecount},
+		#{status},#{author},#{crawldatetime},#{releasedatetimestr},#{releasedatetime},#{updatedatetime},#{iscorenews},#{corenewscode}
+		,#{similarnum},#{relevantnum},#{istopnews},#{picpath},#{isdeleted},#{isoriginal},#{isclue},#{weiboid},#{weibopid},#{weiborootid})
+	</insert>
+
+
+	<insert id="insertBatch" parameterType="java.util.List">
+		<selectKey resultType="java.lang.Integer" keyProperty="innerid"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+
+		insert into news_webpage
+		(webpage_code,webpage_url,title,short_title,keywords,web_summary,source_report,
+		source_crawl,region,classification,cus_classification,reposts_count,comments_count,
+		participate_num,vote,against,browse_count,status,author,crawl_datetime,release_datetime_str,
+		release_datetime,update_datetime,is_core_news,core_news_code,similar_num,relevant_num,
+		is_top_news,pic_path,is_deleted,is_original,is_clue,weibo_id,weibo_pid,weibo_root_id)
+		values
+		<foreach collection="list" item="nWEntity" index="index"
+			separator=",">
+			(
+			#{nWEntity.webpagecode},#{nWEntity.webpageurl},#{nWEntity.title},#{nWEntity.shorttitle},#{nWEntity.keywords},#{nWEntity.websummary},#{nWEntity.sourcereport},#{nWEntity.sourcecrawl},#{nWEntity.region},
+			#{nWEntity.classification},#{nWEntity.cusclassification},#{nWEntity.repostscount},#{nWEntity.commentscount},#{nWEntity.participatenum},#{nWEntity.vote},#{nWEntity.against},#{nWEntity.browsecount},
+			#{nWEntity.status},#{nWEntity.author},#{nWEntity.crawldatetime},#{nWEntity.releasedatetimestr},#{nWEntity.releasedatetime},#{nWEntity.updatedatetime},#{nWEntity.iscorenews},#{nWEntity.corenewscode}
+			,#{nWEntity.similarnum},#{nWEntity.relevantnum},#{nWEntity.istopnews},#{nWEntity.picpath},#{nWEntity.isdeleted},#{nWEntity.isoriginal},#{nWEntity.isclue},#{nWEntity.weiboid},#{nWEntity.weibopid},#{nWEntity.weiborootid}
+			)
+		</foreach>
+	</insert>
+
+
+
+
+	<select id="findByWebpageUrl" parameterType="String" resultMap="news_webpage">
+		select * from news_webpage where webpage_url=#{webpageurl}
+	</select>
+	
+	 <select id="countAll" resultType="int">
+        select count(*) c from news_webpage;
+    </select>
+</mapper>

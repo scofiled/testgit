@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- news_webpage.NewsWebpageDao -->
+<mapper namespace="news_content_new.NewsContentNewDao">
+
+	<insert id="insert" parameterType="news_content_new.NewsContentNewEntity"
+		useGeneratedKeys="true" keyProperty="innerid">
+
+		insert into news_content_new
+		(webpage_code,content,no_tag_content,description,create_datetime)
+		values
+		(#{webpagecode},#{content},#{notagcontent},#{description},#{createdatetime})
+
+	</insert>
+
+
+	<insert id="insertBatch" parameterType="java.util.List">
+		<selectKey resultType="java.lang.Integer" keyProperty="innerid"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		 insert into news_content_new
+		(webpage_code,content,no_tag_content,description,create_datetime)
+		values
+		<foreach collection="list" item="reddemCode" index="index"
+			separator=",">
+			 (
+			 #{reddemCode.webpagecode}, #{reddemCode.content},
+			 #{reddemCode.notagcontent},
+			 #{reddemCode.description},
+			 #{reddemCode.createdatetime}
+			 )
+			
+		</foreach>
+	</insert>
+
+
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="ns_web_comment.NsWebCommentDao">
+    
+    <resultMap type="ns_web_comment.NsWebCommentEntity" id="ns_web_comment">
+		<id property="innerid" column="innerid" />
+		<result property="commentid" column="commentid" />
+		<result property="crawldatetime" column="crawl_datetime" />
+		<result property="releasedatetime" column="release_datetime" />
+		<result property="buildlevel" column="build_level" />
+		<result property="vote" column="vote" />
+		<result property="against" column="against" />
+		<result property="content" column="content" />
+		<result property="postid" column="postid" />
+		<result property="sourcetype" column="source_type" />
+		<result property="userid" column="user_id" />
+		<result property="userlocation" column="user_location" />
+		<result property="username" column="user_name" />
+		<result property="useridnew" column="user_id_new" />
+		<result property="productkey" column="product_key" />
+		<result property="sitename" column="sitename" />
+		<result property="ip" column="ip" />
+		<result property="currenturl" column="current_url" />
+		<result property="uid" column="uid" />
+		<result property="pageno" column="page_no" />
+		<result property="parent" column="parent" />
+		<result property="thread" column="thread" />
+		
+	</resultMap>
+    
+    
+    <select id="selectAll" parameterType="map" resultMap="ns_web_comment" >
+        select * from ns_web_comment where innerid&gt; #{begin} and innerid&lt;= #{end}
+    </select>
+    
+    <select id="countAll" resultType="int">
+        select count(*) c from ns_web_comment
+    </select>
+    
+ 
+    
+   
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="ns_hot_news.NsHotNewsDao">
+    
+    <resultMap type="ns_hot_news.NsHotNewsEntity" id="ns_hot_news">
+		<id property="innerid" column="innerid" />
+		<result property="title" column="title" />
+		<result property="rankingnum" column="ranking_num" />
+		<result property="commentnum" column="comment_num" />
+		<result property="participatenum" column="participate_num" />
+		<result property="clickingnum" column="clicking_num" />
+		<result property="rankingcycle" column="ranking_cycle" />
+		<result property="sourceweb" column="source_web" />
+		<result property="classification" column="classification" />
+		<result property="crawldatetime" column="crawl_datetime" />
+		<result property="releasedatetime" column="release_datetime" />
+		<result property="webpageurl" column="webpage_url" />
+		<result property="uid" column="uid" />
+		<result property="hassamenews" column="has_same_news" />
+		<result property="samenewsset" column="same_news_set" />
+		<result property="hassimilarnews" column="has_similar_news" />
+		<result property="similarnewsset" column="similar_news_set" />
+		<result property="iscrawled" column="is_crawled" />
+		<result property="keywords" column="keywords" />
+	</resultMap>
+    
+    
+    <select id="selectAll" parameterType="map" resultMap="ns_hot_news" >
+        select * from ns_hot_news limit #{begin},#{pagesize}
+    </select>
+    
+    <select id="countAll" resultType="int">
+        select count(*) c from ns_hot_news
+    </select>
+    
+ 	<select id="findWebpageUrlByuid" parameterType="String" resultType="String" >
+        select webpage_url from ns_hot_news where uid = #{uid}
+    </select>
+    
+   
+</mapper>
